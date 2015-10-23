@@ -1,2 +1,2 @@
-# hollyt.github.io
-personal website
+# holly_tancredi
+personal website | hollytancredi.net
