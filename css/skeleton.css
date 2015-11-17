@@ -224,6 +224,40 @@ input[type="button"].button-primary:focus {
   background-color: #1EAEDB;
   border-color: #1EAEDB; }
 
+/* Posts
+__________________________________________________ */
+
+div.post {
+  background-color: #9FA8AB;
+  margin: 10px 10px 10px 5px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #000000;
+  min-height: 100px;
+}
+
+span.date {
+  text-align: left;
+  float: left;
+  margin-left: 2em;
+}
+
+span.auth {
+  text-align: right;
+  float: right;
+  margin-right: 2em;
+}
+
+hr.inpost {
+  margin: 15px 12.5% 15px 12.5%;
+  color: inherit;
+}
+
+p.posttext {
+  margin: 0 1em 0 1em;
+  text-align: justify;
+  text-indent: 1.5em;
+}
 
 /* Forms
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
