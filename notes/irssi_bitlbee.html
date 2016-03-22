@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>~/notes</title>
+  <meta name="description" content="~/notes/set up irssi & bitlbee">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="../css/normalize.css">
+  <link rel="stylesheet" href="../css/skeleton.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="../images/favicon.ico">
+
+</head>
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="row">
+      <div class="eight columns" style="margin-top: 25%">
+<h1><a id="Setting_up_irssi__bitlbee_0"></a>Setting up irssi + bitlbee</h1>
+<p>I want to use screen + irssi + bitlbee as my perfect, customizable, IM client,
+but I had a bit of trouble getting everything to work correctly. This is mostly
+a set of notes to remind me how to get everything set up, but it might be helpful
+to you too.</p>
+<h3><a id="Install_the_programs_6"></a>Install the programs</h3>
+<p>I use Debian, and eveything we need is included in the package manager. You’ll need
+to obtain <code>gnu screen</code>, <code>irssi</code>, and <code>bitlbee</code>.<br>
+<code>sudo apt-get install screen irssi bitlbee</code></p>
+<p>I already used screen, so I’m not going to go into detail about how to set that up.
+For more information on integrating screen with irssi and bitlbee look
+<a href="https://wiki.archlinux.org/index.php/Screen_Irssi_Bitlbee">here</a>.</p>
+<h3><a id="Configure_bitlbee_16"></a>Configure bitlbee</h3>
+<p>Before launching irssi + bitlbee, you’ll want to configure bitlbee. Open up
+<code>/etc/bitlbee/bitlbee.conf</code> and follow the directions in the documentation
+to configure your bitlbee setup. Uncomment a line to implement/change that config.
+I changed:<br>
+<code>RunMode = ForkDaemon</code><br>
+So bitlbee will run as a daemon.<br>
+<code>User = bitlbee</code><br>
+So bitlbee will run as its own user - NOT root.<br>
+<code>DaemonInterface = 0.0.0.0</code>
+<code>DaemonPort = 6667</code><br>
+Uncomment the port info if you’re running as a daemon …<br>
+<code>Operpassword = &lt;password&gt;</code><br>
+Set the oper password …</p>
+<p>The rest of the config file is commented well so just read through it
+and make any changes as you see fit.</p>
+<h3><a id="Using_irssi__bitlbee_34"></a>Using irssi + bitlbee</h3>
+<p>Enter irssi by typing <code>irssi</code> in the command line.
+To connect to the bitlbee server: <code>/server localhost</code>
+You should be in the room &amp;bitlbee (the bitlbee control channel) and
+see two users in the chat - yourself and root. You can interact with
+root to set up and interface with bitlbee.</p>
+<p><strong><em>NOTE:</em></strong> irssi commands are prefixed with <code>/</code> - bitlbee commands are not.</p>
+<p>First, make sure that you’re using a nickname you’re happy with.
+To change your nickname in irssi: <code>/nick &lt;nickname&gt;</code><br>
+Now register a password in the bitlbee control channel: <code>register &lt;password&gt;</code><br>
+Next time you return to the bitlbee control channel, use <code>identify &lt;password&gt;</code>
+to identify yourself. This will load all of the irc &amp; im accounts associated
+with your bitlbee user.<br>
+For example:<br>
+<code>/nick my_nickname</code><br>
+<code>register mypw123</code></p>
+<h3><a id="Add_IM_accounts_to_bitlbee_53"></a>Add IM accounts to bitlbee</h3>
+<p>While in your bitlbee account, type the following to add im accounts:<br>
+<code>account add &lt;protocol&gt; &lt;username&gt;</code><br>
+<code>/OPER</code><br>
+Now enter your IM password.</p>
+<p>For example:<br>
+<code>account add jabber my_jabber_name@myxmppserver.net</code><br>
+<code>/OPER</code></p>
+<p>To list the accounts stored in bitlbee:<br>
+<code>account list</code></p>
+<p>To connect to an account:
+<code>account &lt;account #&gt; on</code></p>
+<p>You can always use <code>help account</code> if you get suck.</p>
+<h3><a id="Chatting_71"></a>Chatting</h3>
+<p>After you have turned your account on, you should see any buddies who are currently
+online join the room. To chat with a buddy, address them directly like this:<br>
+<code>my_buddy's_name: hello</code><br>
+Or message them privately with <code>/m &lt;buddy_name&gt; &lt;msg&gt;</code> and <code>/query &lt;buddy_name&gt;</code>.</p>
+<h3><a id="Notes_77"></a>Notes</h3>
+<p>Once you get your initial setup configured and you’ve added your IM accounts, you
+can make your server private to only registered users by changing the following in
+bitlbee.conf:<br>
+<code>AuthMode = Registered</code><br>
+So only registered users who know your password can use your server.<br>
+<code>Authpassword = &lt;password&gt;</code><br>
+Set the password for your server …</p>
+      </div>
+
+      <div class="three columns" style="margin-top: 25%">
+	<img src="../images/me.jpg" alt="me!" width="128" height="128"><br>
+        <p><a href="../index.html">about</a><br>
+        <a href="index.html">notes</a><br>
+	<a href="../pages/research.html">research</a><br>
+	<a href="https://github.com/hollyt">github</a><br>
+	<a href="http://acc6.its.brooklyn.cuny.edu/~htancred/">DREU 2014 blog<a/></p>
+      </div>
+    </div>
+  </div>
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>
