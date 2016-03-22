@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>~/notes</title>
+  <meta name="description" content="~/notes/shell_talk">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="../css/normalize.css">
+  <link rel="stylesheet" href="../css/skeleton.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="../images/favicon.ico">
+
+</head>
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="row">
+      <div class="eight columns" style="margin-top: 25%">
+<p><b>*** Here are the notes for my 5 minute presentation on <a href="https://github.com/hollyt/bshell">bshell</a> and shell basics at <a href="https://www.recurse.com">The Recurse Center</a> on 1/28/16.</b></p>
+
+<h2><a id="What_is_a_shell_0"></a>What is a shell?</h2>
+<p>Simply a program that allows a user to interact with the operating system and its programs.
+It can be text-based (command line) or a gui.</p>
+<h2><a id="What_is_the_shell_responsible_for_And_what_is_the_difference_between_a_shell__terminal_4"></a>What is the shell responsible for?</h2><h4>(And what is the difference between a shell &amp; terminal?)</h4>
+<p><strong>Shell</strong> - interface between user &amp; the os; Mainly processes commands and returns output<br>
+<strong>Terminal</strong> - Wrapper program that runs a shell. It used to refer to a physical hardware teletype machine (tty)
+but now typically refers to a software program that launches a window in which the shell runs.</p>
+<p>This is not so clear cut, since the shell and terminal share a lot of responsibilites.
+For example, the terminal converts key presses into control sequences (ex. up arrow -&gt; ^[[A) and
+the shell interprets and processes those control sequences. (ex. go up in command history)</p>
+<p><strong>Job control</strong> - launching processes, putting processes in foreground/background, handling process groups and sessions.</p>
+<p><strong>Parsing input and executing commands</strong> - launching programs or shell builtins</p>
+<p><strong>Input history, input autocompletion, tilde expansion of paths</strong></p>
+<p><strong>Reading &amp; implementing shell config files</strong> found in <code>/etc/profile</code>. These usually set environment variables such
+as <code>HOME</code>, <code>USER</code>, <code>HISTSIZE</code>.</p>
+<h2><a id="Overview_of_Processes_in_unix_22"></a>Overview of Processes in unix</h2>
+<p><strong>process</strong> - an instance of a running program<br>
+Every process (except init) is created by <code>fork()</code>ing and <code>exec()</code>ing an existing process.<br>
+After <code>fork()</code>-ing a process you have two processes - parent (original) and child (new).<br>
+Right now, the child process is a copy of the parent process, so we must <code>exec()</code> the
+child process with the process we want to run.</p>
+<p>If we didn’t <code>fork()</code> and <code>exec()</code> new processes in the shell, and instead just executed
+the system call directly, we would be executing the command on our shell process rather
+than a new process.</p>
+<h4><a id="Shell_builtins_vs_exernal_programs_33"></a>Shell builtins vs exernal programs</h4>
+<p><strong>builtins</strong>  - command that is executed directly in the shell. Significantly faster,
+no external process overhead, implemented in shell source code.
+<strong>external programs</strong> - programs called externally and <code>fork()</code>-d and <code>exec()</code>-d by the shell
+process and given their own group id.</p>
+<h4><a id="Process_sessions__groups_39"></a>Process sessions &amp; groups</h4>
+<p>Each process has its own unique process id (<code>pid</code>.)</p>
+<p>When you run a new program from the shell (<code>myapp</code>), the shell creates a new <strong>process group</strong>
+for <code>myapp</code> and makes this group the <strong>foreground process group</strong>.</p>
+<p>Child processes of <code>myapp</code> are part of <code>myapp</code>'s <strong>process group</strong> by default.</p>
+<p><strong>session</strong> - collection of process groups controlled by a single terminal (ex. my shell)<br>
+<strong>process group</strong> - collection of related processes which can all be signalled at once</p>
+<pre><code>SESSION (has controlling tty)
+<span class="hljs-string">\__</span> process group
+<span class="hljs-string">\__</span> process group
+<span class="hljs-string">\__</span> process group
+    <span class="hljs-string">\__</span> process
+    <span class="hljs-string">\__</span> process
+    <span class="hljs-string">\__</span> process
+        <span class="hljs-string">\__</span> thread
+        <span class="hljs-string">\__</span> thread
+        <span class="hljs-string">\__</span> thread
+</code></pre>
+      </div>
+
+      <div class="three columns" style="margin-top: 25%">
+	<img src="../images/me.jpg" alt="me!" width="128" height="128"><br>
+        <p><a href="../index.html">about</a><br>
+        <a href="index.html">notes</a><br>
+	<a href="../pages/research.html">research</a><br>
+	<a href="https://github.com/hollyt">github</a><br>
+	<a href="http://acc6.its.brooklyn.cuny.edu/~htancred/">DREU 2014 blog<a/></p>
+      </div>
+    </div>
+  </div>
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>
